@@ -9,7 +9,8 @@ export interface PianoKeys {
 export default class Piano extends React.Component {
     render() {
         return (
-            <div className="piano-application">
+            <div>
+                <div className="piano-application">
                 <NaturalKeys letter={"C"} >
                     <FlatKeys />
                 </NaturalKeys>
@@ -30,6 +31,10 @@ export default class Piano extends React.Component {
                 </NaturalKeys>
                 <NaturalKeys letter={"B"} />
             </div>
+
+            </div>
+            
+            
         );
     }
 }
