@@ -1,4 +1,5 @@
 import React, { SyntheticEvent, ChangeEvent } from 'react';
+import SanitizeKeyNotes from '../../service/SanitizeKeynotes';
 
 interface NotePlayerState {
     manuscripts: string;
@@ -25,17 +26,24 @@ export default class Noteplayer extends React.Component<NotePlayerProps, NotePla
     }
 
     playSequence = () => {
-        const sequenceKey = this.state.manuscripts.split(',');
-        const intervalReference = setInterval(() => {
-            if(sequenceKey.length){
-                // Emit the character and remove at the same time
-                this.props.sequencePlayed(sequenceKey.shift() as string);
-            }
-            else{
-                //Nothing to shift
-                clearInterval(intervalReference);
-            }
-        },1000);
+        let sanitizer= new SanitizeKeyNotes();
+        if(sanitizer.isSequenceFormat(this.state.manuscripts)){
+            const sequenceKey = this.state.manuscripts.split(',');
+            const intervalReference = setInterval(() => {
+                if(sequenceKey.length){
+                    // Emit the character and remove at the same time
+                    this.props.sequencePlayed(sequenceKey.shift() as string);
+                }
+                else{
+                    //Nothing to shift
+                    clearInterval(intervalReference);
+                }
+            },1000);
+        }
+        else{
+            alert('Sorry but the format sent is Invalid, Keys are A-G Comma Seperated')
+        }
+        
     }
 
     render = () => {
