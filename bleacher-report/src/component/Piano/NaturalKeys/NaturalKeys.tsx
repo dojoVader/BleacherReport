@@ -9,7 +9,6 @@ export default class NaturalKeys extends React.Component<PianoKeysProps, PianoKe
         super(props);
         this.state = {
             letter: this.props.letter,
-            callback: this.props.onKeyTapped
         };
     }
 
@@ -23,7 +22,7 @@ export default class NaturalKeys extends React.Component<PianoKeysProps, PianoKe
 
     render() {
         return (
-            <div className="natural-keys" onClick={(e) => this.state.callback(this.state.letter)}>
+            <div className="natural-keys" onClick={(e) => this.props.onKeyTapped(this.state.letter)}>
                 <div className="letter-holder">
                     {this.state.letter}
                 </div>

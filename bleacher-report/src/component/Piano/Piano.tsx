@@ -2,6 +2,7 @@ import React from 'react';
 import NaturalKeys from './NaturalKeys/NaturalKeys';
 import FlatKeys from './FlatKeys/FlatKeys';
 import './Piano.scss';
+import Noteplayer from '../NotePlayer/NotePlayer';
 
 export interface PianoKeysProps {
     onKeyTapped: (n: string) => void;
@@ -10,7 +11,7 @@ export interface PianoKeysProps {
 
 export interface PianoKeyState {
     letter: string;
-    callback: (n: string) => void;
+
 }
 
 interface Notes {
@@ -29,13 +30,16 @@ export default class Piano extends React.Component<{}, Notes> {
     }
 
     log = (note: string) => {
-        console.log(note);
         if (note !== undefined && note.length > 0) {
             this.state.keysLogged.push(note);
             this.setState({
                 keysLogged: this.state.keysLogged
-            })
+            });
         }
+    }
+
+    play = () => {
+
     }
 
 
@@ -43,6 +47,14 @@ export default class Piano extends React.Component<{}, Notes> {
         const keysTyped = this.state.keysLogged.map((e, index, arr) => {
             return <p key={index}>{e.toUpperCase()} {index !== (arr.length - 1) ? ',' : ''}</p>
         });
+
+        const shouldRenderLogs = (this.state.keysLogged.length) ?
+            (
+                <code className="logs">
+                    {keysTyped}
+                    <div className="clearfix"></div>
+                </code>) : '';
+
         return (
             <div>
                 <div className="piano-application">
@@ -66,11 +78,11 @@ export default class Piano extends React.Component<{}, Notes> {
                     </NaturalKeys>
                     <NaturalKeys letter={"B"} onKeyTapped={this.log} />
                 </div>
-                <div className="clearfix"></div>
-                <div className="logs">
-                    {keysTyped}
-                    <div className="clearfix"></div>
-                </div>
+                {shouldRenderLogs}
+                
+                <Noteplayer />
+
+
 
             </div>
 
