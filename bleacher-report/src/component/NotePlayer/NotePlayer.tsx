@@ -28,7 +28,7 @@ export default class Noteplayer extends React.Component<NotePlayerProps, NotePla
     playSequence = () => {
         let sanitizer= new SanitizeKeyNotes();
         if(sanitizer.isSequenceFormat(this.state.manuscripts)){
-            const sequenceKey = this.state.manuscripts.split(',');
+            const sequenceKey = this.state.manuscripts.replace(' ','').split(',');
             const intervalReference = setInterval(() => {
                 if(sequenceKey.length){
                     // Emit the character and remove at the same time
