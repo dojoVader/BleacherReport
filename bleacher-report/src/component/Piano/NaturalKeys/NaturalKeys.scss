@@ -21,6 +21,9 @@ $minHeight: 290px;
         width: 100%;
         font-weight: 700;
         font-size: 41px;
+        &.active{
+            color:blue;
+        }
     }
 }
 
