@@ -1,23 +1,29 @@
 import React, { SyntheticEvent } from 'react';
 import './NaturalKeys.scss';
-import { PianoKeys } from '../Piano';
+import { PianoKeysProps, PianoKeyState } from '../Piano';
 
-export default class NaturalKeys extends React.Component<PianoKeys, PianoKeys> {
+let _callbackFn: any;
+export default class NaturalKeys extends React.Component<PianoKeysProps, PianoKeyState> {
 
-
-    constructor(props: PianoKeys) {
+    constructor(props: PianoKeysProps) {
         super(props);
         this.state = {
-            letter: this.props.letter
-        }
+            letter: this.props.letter,
+            callback: this.props.onKeyTapped
+        };
     }
+
 
     onTap = (e: SyntheticEvent) => {
         console.log("Tapped letter %s", this.state.letter);
+        _callbackFn(this.state.letter);
     }
+
+
+
     render() {
         return (
-            <div className="natural-keys" onClick={this.onTap}>
+            <div className="natural-keys" onClick={(e) => this.state.callback(this.state.letter)}>
                 <div className="letter-holder">
                     {this.state.letter}
                 </div>
